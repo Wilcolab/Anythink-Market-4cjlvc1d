@@ -24,3 +24,15 @@ router.delete("/:id", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
+//add another endpoint for updating a comment
+router.put("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedComment = await Comment.findByIdAndUpdate(id, req.body, { new: true });
+    res.json(updatedComment);
+  } catch (error) {
+    console.error("Error updating comment:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
